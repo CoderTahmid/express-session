@@ -22,17 +22,38 @@ const run = async () => {
     //     age: 123 
     // })
 
-    const cursor = userCollection.find(); 
-    /*
-        ei userCollection.find() amader onek gulo data dey, but amra jei data khujtesi 
-        sheta dicche na. 
-        basically ei userCollection.find() amader ekta cursor dicche (just like our mouse cursor)
-        and ei cursor diye amra amder data khuje pabo
+
+    /* find method */
+    // const cursor = userCollection.find(); 
+    // /*
+    //     ei userCollection.find() amader onek gulo data dey, but amra jei data khujtesi 
+    //     sheta dicche na. 
+    //     basically ei userCollection.find() amader ekta cursor dicche (just like our mouse cursor)
+    //     and ei cursor diye amra amder data khuje pabo
+    // */
+    // const result = await cursor.toArray();
+
+    // console.log(result); // now that's gonna print all the data i've in my database
+
+    const result = await userCollection.updateOne({age: 20}, {$set: {name: "TAHMID"}}); // ekhane jar jar age 20 tader jei name key ta ase tar value "TAHMID" kore dewa hoise
+    const result2 = await userCollection.updateMany(
+        {age: {
+            $gt: 20
+        }},
+        {
+            $set: {
+                name: "Age is greater than 20"
+            }
+        }
+    )
+    /* 
+        ekhane basically jar jar age 20 er beshi tader name key'r value "Age is greater than 20" set kora hoise
+        updateOne diye only ekta data ke update kora jay.
+        and updateMany diye jei koyta 20 er beshi ase shobgula kei upate kora jay
+        gt = greater than
     */
-    const result = await cursor.toArray();
-
-    console.log(result); // now that's gonna print all the data i've in my database
-
+    console.log(result);
+    console.log(result2);
 
     console.log("The DB client is connected");
 }
