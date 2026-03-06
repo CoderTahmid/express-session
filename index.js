@@ -17,12 +17,21 @@ const run = async () => {
     const userCollection = db.collection("user");
     
     /* insertOne operation */
-    const result = await userCollection.insertOne({ // basically amra userCollection e ekta specific data ke insert kortesi ekhane
-        name: "Rakib",
-        age: 123 
-    })
-    
-    console.log(result);
+    // const result = await userCollection.insertOne({ // basically amra userCollection e ekta specific data ke insert kortesi ekhane
+    //     name: "Rakib",
+    //     age: 123 
+    // })
+
+    const cursor = userCollection.find(); 
+    /*
+        ei userCollection.find() amader onek gulo data dey, but amra jei data khujtesi 
+        sheta dicche na. 
+        basically ei userCollection.find() amader ekta cursor dicche (just like our mouse cursor)
+        and ei cursor diye amra amder data khuje pabo
+    */
+    const result = await cursor.toArray();
+
+    console.log(result); // now that's gonna print all the data i've in my database
 
 
     console.log("The DB client is connected");
